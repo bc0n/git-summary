@@ -26,7 +26,6 @@ setup(
     install_requires=[
         'colorama>=0.4.6',
         'gitpython>=3.2.1',
-        'sh>=2.4.0',
     ],
     keywords='command-line git tool',
     package_dir={'': 'src'},
@@ -34,5 +33,5 @@ setup(
     project_urls={
         'Source': 'https://github.com/gimbo/git-summary',
     },
-    python_requires='>=3.10, <4',
+    python_requires='>=3.8, <4',
 )

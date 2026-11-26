@@ -9,7 +9,6 @@ from collections import OrderedDict
 from itertools import zip_longest
 
 import colorama
-import sh
 from colorama import Back, Fore, Style
 from git import BadName, GitCommandError, InvalidGitRepositoryError, Repo
 
@@ -346,18 +345,12 @@ class GitRepo:
         self.has_unpushed_commits = self.git_log_cmp(remote_branch, local_branch)
 
     def check_if_remote_is_gone(self):
-        os.chdir(os.path.join(self.path, self.name))
-        try:
-            # If this command fails, the remote is gone.
-            sh.git(
-                (
-                    'show-branch',
-                    '{0}/{1}'.format(self.remote_name, self.remote_branch),
-                )
-            )
-            return False
-        except sh.ErrorReturnCode:
-            return True
+        # If this command fails, the remote is gone.
+        result = self._git(
+            'show-branch',
+            '{0}/{1}'.format(self.remote_name, self.remote_branch),
+        )
+        return result.returncode != 0
 
     def git_log_cmp(self, branch_1, branch_2):
         """Does branch_1 contain commits which aren't in branch_2?
@@ -366,14 +359,25 @@ class GitRepo:
         work out a way to compute this result using gitpython.
 
         """
-        os.chdir(os.path.join(self.path, self.name))
-        args = (
+        result = self._git(
             '--no-pager',
             'log',
             '--format=oneline',
             '{0}..{1}'.format(branch_1.name, branch_2.name),
         )
-        return bool(sh.git(args, _return_cmd=True).stdout.decode('utf-8').strip())
+        return bool(result.stdout.strip())
+
+    def _git(self, *args):
+        """Run a git command in this repo's folder; return CompletedProcess."""
+        return subprocess.run(
+            ('git',) + args,
+            cwd=os.path.join(self.path, self.name),
+            stdout=subprocess.PIPE,
+            stderr=subprocess.DEVNULL,
+            text=True,
+            encoding='utf-8',
+            errors='replace',
+        )
 
 
 class SequentialSummariser:
