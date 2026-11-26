@@ -2,7 +2,6 @@
 
 from setuptools import find_packages, setup
 
-
 setup(
     name='git-summary',
     version='1.0',
@@ -25,9 +24,9 @@ setup(
         ],
     },
     install_requires=[
-        'colorama>=0.3.7',
-        'gitpython>=2.1.3',
-        'sh>=1.10.0',
+        'colorama>=0.4.6',
+        'gitpython>=3.2.1',
+        'sh>=2.4.0',
     ],
     keywords='command-line git tool',
     package_dir={'': 'src'},
@@ -35,5 +34,5 @@ setup(
     project_urls={
         'Source': 'https://github.com/gimbo/git-summary',
     },
-    python_requires='>=3.6, <4',
+    python_requires='>=3.10, <4',
 )

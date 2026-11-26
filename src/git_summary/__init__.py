@@ -13,7 +13,6 @@ import sh
 from colorama import Back, Fore, Style
 from git import BadName, GitCommandError, InvalidGitRepositoryError, Repo
 
-
 # Env var to look in for path to folder containing repos
 REPOS_PATH_ENV_VAR = 'GIT_SUMMARY_REPOS_PATH'
 
@@ -85,9 +84,7 @@ By default the tool runs concurrently, querying multiple repos in the
 background at once.  If desired, this can be disabled via the --sequential/-S
 flag.  It's somewhat slower, particular if also fetching from remotes.
 
-""".format(
-    repos_path_env_var=REPOS_PATH_ENV_VAR
-)
+""".format(repos_path_env_var=REPOS_PATH_ENV_VAR)
 
 
 HEADER_REPO = 'repo name'
@@ -376,7 +373,7 @@ class GitRepo:
             '--format=oneline',
             '{0}..{1}'.format(branch_1.name, branch_2.name),
         )
-        return bool(sh.git(args).stdout.decode('utf-8').strip())
+        return bool(sh.git(args, _return_cmd=True).stdout.decode('utf-8').strip())
 
 
 class SequentialSummariser:
@@ -478,7 +475,6 @@ class ConcurrentSummariser:
 
 
 class OutputBase:
-
     """Base class for outputs, containing shared behaviour."""
 
     def __init__(self, repos, path, tracking=False, *args, **kwargs):
@@ -663,7 +659,6 @@ class SimpleOutput(OutputBase):
 
 
 class FancyOutput(OutputBase):
-
     """Fancy fast-updating output using ANSI escape codes."""
 
     def __init__(
@@ -779,7 +774,6 @@ class FancyOutput(OutputBase):
 
 
 class AnsiWriter:
-
     """Helper class for moving the cursor with ANSI escape codes.
 
     Easily write to arbitrary (0-indexed) positions in the console.
