@@ -28,13 +28,24 @@ The built-in help is extensive, so either run the tool with the `--help` flag or
 
 ## Requirements
 
-It's python 3; it might work under 2 but I haven't tested it.  (Only got python2 on your system?  Let
-[pyenv](https://github.com/pyenv/pyenv) into your life and make things better.)  Not sure what the minimum version is.
+  - Python 3.8 or newer.
+  - `git` available on your `PATH`.
 
 ## Installation
 
-You could just download this repo and do `setup.py install`.  I recommend using
-[pipsi](https://github.com/mitsuhiko/pipsi), however.
+Install it with [pipx](https://pipx.pypa.io/), which puts `git-summary` on your `PATH` in its own isolated environment:
+
+```bash
+pipx install git+https://github.com/bc0n/git-summary
+```
+
+Or, from a clone of this repo:
+
+```bash
+pip install .
+```
+
+(Don't use `python setup.py install`: it's deprecated and won't install the dependencies.)
 
 ## Caveats
 
@@ -42,6 +53,9 @@ You could just download this repo and do `setup.py install`.  I recommend using
     ANSI shiz" may be less good, in particular the thing that tries to work out the cursor's position when the
     program starts (which is needed to get the fancy updates working) might fail.  But that's OK, you can always
     just disable it or fix it.  :-)
+
+  - On Windows the cursor-position check doesn't work, so fancy mode clears the screen before drawing.  Use
+    `--simple`/`-s` if you'd rather keep your scrollback.
 
   - [git-extras](https://github.com/tj/git-extras) contains a "git-summary" tool which does something entirely
     different.  Oops, my bad.  Ah well, never mind...
