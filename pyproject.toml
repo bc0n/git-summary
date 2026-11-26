@@ -1,2 +1,40 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "git-summary"
+version = "1.0"
+description = "Summarise a bunch of git repositories in some folder"
+readme = "README.md"
+authors = [{ name = "Andy Gimblett", email = "andy@barefootcode.com" }]
+license = "MIT"
+license-files = ["LICENSE.txt"]
+requires-python = ">=3.9"
+dependencies = [
+  "colorama>=0.4.6",
+  "gitpython>=3.2.1",
+]
+keywords = ["command-line", "git", "tool"]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Intended Audience :: System Administrators",
+  "Programming Language :: Python :: 3 :: Only",
+  "Topic :: Software Development :: Version Control :: Git",
+  "Topic :: Utilities",
+]
+
+[project.urls]
+Source = "https://github.com/bc0n/git-summary"
+
+[project.scripts]
+git-summary = "git_summary:main"
+
 [tool.black]
 skip-string-normalization = true
+
+[tool.isort]
+profile = "black"
+known_third_party = ["colorama", "git"]

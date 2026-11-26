@@ -673,7 +673,7 @@ class FancyOutput(OutputBase):
         monochrome=False,
         clear=False,
         *args,
-        **kwargs
+        **kwargs,
     ):
         super().__init__(repos, path, tracking, *args, **kwargs)
         self.monochrome = monochrome

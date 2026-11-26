@@ -28,7 +28,7 @@ The built-in help is extensive, so either run the tool with the `--help` flag or
 
 ## Requirements
 
-  - Python 3.8 or newer.
+  - Python 3.9 or newer.
   - `git` available on your `PATH`.
 
 ## Installation
